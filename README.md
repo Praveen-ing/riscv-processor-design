@@ -121,9 +121,8 @@ Hazard detection logic
 
 Sample testcases
 
-📝 License
-This project is licensed under the MIT License.
+
 
 ✉️ Contact
 Created by Nethavath Praveen, IIIT Hyderabad.
-Email | LinkedIn | GitHub
+
