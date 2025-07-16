@@ -1,0 +1,105 @@
+#! /usr/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+S_0x564cc603e590 .scope module, "HazardDetectionUnit_tb" "HazardDetectionUnit_tb" 2 3;
+ .timescale -9 -12;
+v0x564cc605ca50_0 .var "BranchTaken", 0 0;
+v0x564cc605cb10_0 .net "Flush", 0 0, v0x564cc605c270_0;  1 drivers
+v0x564cc605cbe0_0 .var "ID_EX_MemRead", 0 0;
+v0x564cc605cce0_0 .var "ID_EX_RegisterRd", 4 0;
+v0x564cc605cdb0_0 .var "IF_ID_RegisterRs1", 4 0;
+v0x564cc605ce50_0 .var "IF_ID_RegisterRs2", 4 0;
+v0x564cc605cf20_0 .net "IF_ID_Write", 0 0, v0x564cc605c6f0_0;  1 drivers
+v0x564cc605cff0_0 .net "PCWrite", 0 0, v0x564cc605c7b0_0;  1 drivers
+v0x564cc605d0c0_0 .net "Stall", 0 0, v0x564cc605c870_0;  1 drivers
+S_0x564cc603e720 .scope module, "uut" "HazardDetectionUnit" 2 18, 3 1 0, S_0x564cc603e590;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "ID_EX_MemRead";
+    .port_info 1 /INPUT 5 "ID_EX_RegisterRd";
+    .port_info 2 /INPUT 5 "IF_ID_RegisterRs1";
+    .port_info 3 /INPUT 5 "IF_ID_RegisterRs2";
+    .port_info 4 /INPUT 1 "BranchTaken";
+    .port_info 5 /OUTPUT 1 "Stall";
+    .port_info 6 /OUTPUT 1 "PCWrite";
+    .port_info 7 /OUTPUT 1 "IF_ID_Write";
+    .port_info 8 /OUTPUT 1 "Flush";
+v0x564cc6004490_0 .net "BranchTaken", 0 0, v0x564cc605ca50_0;  1 drivers
+v0x564cc605c270_0 .var "Flush", 0 0;
+v0x564cc605c330_0 .net "ID_EX_MemRead", 0 0, v0x564cc605cbe0_0;  1 drivers
+v0x564cc605c400_0 .net "ID_EX_RegisterRd", 4 0, v0x564cc605cce0_0;  1 drivers
+v0x564cc605c4e0_0 .net "IF_ID_RegisterRs1", 4 0, v0x564cc605cdb0_0;  1 drivers
+v0x564cc605c610_0 .net "IF_ID_RegisterRs2", 4 0, v0x564cc605ce50_0;  1 drivers
+v0x564cc605c6f0_0 .var "IF_ID_Write", 0 0;
+v0x564cc605c7b0_0 .var "PCWrite", 0 0;
+v0x564cc605c870_0 .var "Stall", 0 0;
+    .scope S_0x564cc603e590;
+T_0 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x564cc605cbe0_0, 0, 1;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x564cc605cce0_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x564cc605cdb0_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x564cc605ce50_0, 0, 5;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x564cc605ca50_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 42 "$display", "Test Case 1: No hazard" {0 0 0};
+    %delay 10000, 0;
+    %vpi_call 2 44 "$display", "Stall = %b, PCWrite = %b, IF_ID_Write = %b, Flush = %b", v0x564cc605d0c0_0, v0x564cc605cff0_0, v0x564cc605cf20_0, v0x564cc605cb10_0 {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x564cc605cbe0_0, 0, 1;
+    %pushi/vec4 2, 0, 5;
+    %store/vec4 v0x564cc605cce0_0, 0, 5;
+    %pushi/vec4 2, 0, 5;
+    %store/vec4 v0x564cc605cdb0_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x564cc605ce50_0, 0, 5;
+    %vpi_call 2 51 "$display", "Test Case 2: Load-use hazard (EX writing to x2, ID using x2)" {0 0 0};
+    %delay 10000, 0;
+    %vpi_call 2 53 "$display", "Stall = %b, PCWrite = %b, IF_ID_Write = %b, Flush = %b", v0x564cc605d0c0_0, v0x564cc605cff0_0, v0x564cc605cf20_0, v0x564cc605cb10_0 {0 0 0};
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x564cc605cdb0_0, 0, 5;
+    %pushi/vec4 2, 0, 5;
+    %store/vec4 v0x564cc605ce50_0, 0, 5;
+    %vpi_call 2 58 "$display", "Test Case 3: Load-use hazard (EX writing to x2, ID using x2 as Rs2)" {0 0 0};
+    %delay 10000, 0;
+    %vpi_call 2 60 "$display", "Stall = %b, PCWrite = %b, IF_ID_Write = %b, Flush = %b", v0x564cc605d0c0_0, v0x564cc605cff0_0, v0x564cc605cf20_0, v0x564cc605cb10_0 {0 0 0};
+    %pushi/vec4 4, 0, 5;
+    %store/vec4 v0x564cc605cce0_0, 0, 5;
+    %pushi/vec4 2, 0, 5;
+    %store/vec4 v0x564cc605cdb0_0, 0, 5;
+    %pushi/vec4 3, 0, 5;
+    %store/vec4 v0x564cc605ce50_0, 0, 5;
+    %vpi_call 2 66 "$display", "Test Case 4: No load-use hazard (Different registers)" {0 0 0};
+    %delay 10000, 0;
+    %vpi_call 2 68 "$display", "Stall = %b, PCWrite = %b, IF_ID_Write = %b, Flush = %b", v0x564cc605d0c0_0, v0x564cc605cff0_0, v0x564cc605cf20_0, v0x564cc605cb10_0 {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x564cc605cbe0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x564cc605ca50_0, 0, 1;
+    %vpi_call 2 73 "$display", "Test Case 5: Branch Taken (Flush should be 1)" {0 0 0};
+    %delay 10000, 0;
+    %vpi_call 2 75 "$display", "Stall = %b, PCWrite = %b, IF_ID_Write = %b, Flush = %b", v0x564cc605d0c0_0, v0x564cc605cff0_0, v0x564cc605cf20_0, v0x564cc605cb10_0 {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x564cc605ca50_0, 0, 1;
+    %vpi_call 2 79 "$display", "Test Case 6: Branch Not Taken (Normal Execution)" {0 0 0};
+    %delay 10000, 0;
+    %vpi_call 2 81 "$display", "Stall = %b, PCWrite = %b, IF_ID_Write = %b, Flush = %b", v0x564cc605d0c0_0, v0x564cc605cff0_0, v0x564cc605cf20_0, v0x564cc605cb10_0 {0 0 0};
+    %vpi_call 2 84 "$display", "Testbench completed." {0 0 0};
+    %vpi_call 2 85 "$stop" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb_hdu1.v";
+    "hdu1.v";
