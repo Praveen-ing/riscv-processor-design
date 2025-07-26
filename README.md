@@ -34,7 +34,7 @@ This project implements a **64-bit RISC-V processor** in Verilog with both **seq
 ---
 
 ## 📁 **File Structure**
-
+```bash
 ├── alu.v
 ├── alu_control.v
 ├── control.v
@@ -53,11 +53,11 @@ This project implements a **64-bit RISC-V processor** in Verilog with both **seq
 │   └── ...
 ├── Final Report.pdf
 └── README.md
-
+```
 ---
 
 ## ⚙️ **Modules Overview**
-
+```bash
 | Module | Description |
 |--------|-------------|
 | `alu.v` | Performs 64-bit arithmetic and logical operations. |
@@ -73,7 +73,7 @@ This project implements a **64-bit RISC-V processor** in Verilog with both **seq
 | `pipeline_registers.v` | Implements IF/ID, ID/EX, EX/MEM, MEM/WB pipeline registers. |
 | `sequential_wrapper.v` | Top-level module for sequential processor. |
 | `pipelined_wrapper.v` | Top-level module for pipelined processor. |
-
+```
 ---
 
 I individually implemented the following core modules:
